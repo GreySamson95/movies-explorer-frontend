@@ -157,3 +157,34 @@
 .about-me__project-button:focus {
   outline: 0;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .about-me__header {
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 16px;
+  }
+
+  .about-me__author {
+    max-width: 364px;
+  }
+
+  .about-me__subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 20px;
+  }
+
+  .about-me__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-me__avatar {
+    width: 255px;
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: 767px) {
+
+}
