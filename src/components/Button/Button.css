@@ -3,15 +3,16 @@
   padding: 0;
   border: 0;
   color: #000;
-  align-items: center;
   font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   cursor: pointer;
-  transition: opacity .12s;
+  transition: opacity .2s;
   margin-right: 10px;
+  user-select: none;
+  text-align: center;
 }
 
 .button:last-of-type {
@@ -25,7 +26,12 @@
 
 .button_size_medium {
   height: 36px;
-  padding: 0 17px;
+  width: 96px;
+}
+
+.button_size_large {
+  height: 44px;
+  padding: 0 15px;
 }
 
 .button_form-factor_square {
@@ -34,6 +40,10 @@
 
 .button_form-factor_round {
   border-radius: 10px;
+}
+
+.button_form-factor_extra-round {
+  border-radius: 20px;
 }
 
 .button_color_green {
@@ -47,6 +57,7 @@
 
 .button_color_blue {
   background-color: #4285F4;
+  color: #fff;
 }
 
 .button:hover {

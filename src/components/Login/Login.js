@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import '../SinglePageForm/SinglePageForm.css';
 import SinglePageForm from '../SinglePageForm/SinglePageForm';
@@ -12,22 +11,25 @@ function Login() {
       hintLinkText="Регистрация"
       hintLinkUrl="/signup"
     >
-      <label htmlFor="email" className="spf__label">E-mail</label>
-      <input
-        type="email"
-        className="spf__input"
-        placeholder="vitaly@email.com"
-        id="email"
-      />
+      <label htmlFor="email" className="spf__label">
+        E-mail
+        <input
+          type="email"
+          className="spf__input"
+          placeholder="email@example.com"
+          id="email"
+        />
+      </label>
 
-      <label htmlFor="password" className="spf__label">Пароль</label>
-      <input
-        type="password"
-        className="spf__input"
-        placeholder="vitaliy@yandex.com"
-        id="password"
-        placeholder=""
-      />
+      <label htmlFor="password" className="spf__label">
+        Пароль
+        <input
+          type="password"
+          className="spf__input"
+          id="password"
+          placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+        />
+      </label>
 
     </SinglePageForm>
   );

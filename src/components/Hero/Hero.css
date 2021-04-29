@@ -1,6 +1,6 @@
 .hero {
   background-color: #202020;
-  height: 513px;
+  min-height: 513px;
   width: 100%;
   display: flex;
   flex-flow: column nowrap;
@@ -19,12 +19,15 @@
   justify-content: space-between;
 }
 
-.hero__banner-title {
+.hero__banner-header {
+  overflow: hidden;
   font-family: Inter;
   margin-top: 160px;
   max-width: 730px;
+  max-height: 116px;
   font-style: normal;
   font-weight: normal;
+  text-overflow: ellipsis;
   font-size: 50px;
   line-height: 58px;
   text-align: center;

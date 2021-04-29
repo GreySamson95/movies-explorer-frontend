@@ -4,6 +4,18 @@
   border-radius: 10px;
 }
 
+.navtab__items {
+  display: flex;
+  flex-flow: row nowrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .navtab__achor-link {
   margin-right: 10px;
+}
+
+.navtab__achor-last-link {
+  margin-right: 0;
 }
