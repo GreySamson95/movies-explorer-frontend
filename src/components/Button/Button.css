@@ -21,7 +21,7 @@
 
 .button_size_small {
   height: 32px;
-  padding: 0 20px;
+  width: 76px;
 }
 
 .button_size_medium {
@@ -36,6 +36,10 @@
 
 .button_form-factor_square {
   border-radius: 3px;
+}
+
+.button_form-factor_smooth-square {
+  border-radius: 6px;
 }
 
 .button_form-factor_round {
@@ -66,4 +70,25 @@
 
 .button:focus {
   outline: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+
+}
+
+@media screen and (min-width: 0) and (max-width: 767px) {
+  .button {
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  .button_size_small {
+    width: 54px;
+    height: 26px;
+  }
+
+  .button_size_medium {
+    width: 82px;
+    height: 26px;
+  }
 }
