@@ -1,0 +1,98 @@
+.button {
+  height: 32px;
+  padding: 0;
+  border: 0;
+  color: #000;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-right: 10px;
+  user-select: none;
+  text-align: center;
+}
+
+.button:last-of-type {
+  margin-right: 0;
+}
+
+.button_size_small {
+  height: 32px;
+  width: 76px;
+}
+
+.button_size_wide {
+  width: 100px;
+  height: 32px;
+}
+
+.button_size_medium {
+  height: 36px;
+  width: 96px;
+}
+
+.button_size_large {
+  height: 44px;
+  padding: 0 15px;
+}
+
+.button_form-factor_square {
+  border-radius: 3px;
+}
+
+.button_form-factor_smooth-square {
+  border-radius: 6px;
+}
+
+.button_form-factor_round {
+  border-radius: 10px;
+}
+
+.button_form-factor_extra-round {
+  border-radius: 20px;
+}
+
+.button_color_green {
+  background-color: #3ddc84;
+}
+
+.button_color_gray {
+  background-color: #303030;
+  color: #fff;
+}
+
+.button_color_blue {
+  background-color: #4285f4;
+  color: #fff;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button:focus {
+  outline: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {}
+
+@media screen and (min-width: 0) and (max-width: 767px) {
+  .button {
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .button_size_small {
+    width: 54px;
+    height: 26px;
+  }
+  .button_size_medium {
+    width: 82px;
+    height: 26px;
+  }
+  .button_size_wide {
+    font-size: 14px;
+  }
+}
