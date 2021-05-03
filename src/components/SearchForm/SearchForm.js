@@ -1,10 +1,8 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
-import React from 'react';
-import PropTypes from 'prop-types';
-import './SearchForm.css';
-import Button from '../Button/Button';
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import React from "react";
+import PropTypes from "prop-types";
+import "./SearchForm.css";
+import Button from "../Button/Button";
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
   const { onCheckBoxToggle } = props;
@@ -26,7 +24,7 @@ function SearchForm(props) {
             color="blue"
             formFactor="square"
             text="Найти"
-            url="/signin"
+            url="/movies"
           />
         </form>
         <label className="sf__filter" htmlFor="filter">
@@ -36,7 +34,7 @@ function SearchForm(props) {
           />
           Короткометражки
         </label>
-        <hr className="sf__line" />
+        <hr className="sf__divider" />
       </div>
     </>
   );

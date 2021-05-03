@@ -9,7 +9,7 @@
   font-size: 12px;
   line-height: 16px;
   cursor: pointer;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
   margin-right: 10px;
   user-select: none;
   text-align: center;
@@ -22,6 +22,11 @@
 .button_size_small {
   height: 32px;
   width: 76px;
+}
+
+.button_size_wide {
+  width: 100px;
+  height: 32px;
 }
 
 .button_size_medium {
@@ -51,7 +56,7 @@
 }
 
 .button_color_green {
-  background-color: #3DDC84;
+  background-color: #3ddc84;
 }
 
 .button_color_gray {
@@ -60,35 +65,34 @@
 }
 
 .button_color_blue {
-  background-color: #4285F4;
+  background-color: #4285f4;
   color: #fff;
 }
 
 .button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .button:focus {
   outline: 0;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1279px) {
-
-}
+@media screen and (min-width: 768px) and (max-width: 1279px) {}
 
 @media screen and (min-width: 0) and (max-width: 767px) {
   .button {
     font-size: 10px;
     line-height: 16px;
   }
-
   .button_size_small {
     width: 54px;
     height: 26px;
   }
-
   .button_size_medium {
     width: 82px;
     height: 26px;
+  }
+  .button_size_wide {
+    font-size: 14px;
   }
 }

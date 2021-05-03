@@ -1,13 +1,12 @@
-import React from 'react';
-import { HashLink } from 'react-router-hash-link';
-import Button from '../Button/Button';
-import './NavTab.css';
+import React from "react";
+import { HashLink } from "react-router-hash-link";
+import Button from "../Button/Button";
+import "./NavTab.css";
 
 function NavTab() {
   return (
     <nav className="navtab">
       <ul className="navtab__items">
-
         <li className="navtab__item">
           <HashLink to="/#aboutProject" className="navtab__achor-link">
             <Button
@@ -40,9 +39,7 @@ function NavTab() {
             />
           </HashLink>
         </li>
-
       </ul>
-
     </nav>
   );
 }

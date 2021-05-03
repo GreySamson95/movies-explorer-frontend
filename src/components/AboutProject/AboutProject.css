@@ -1,9 +1,7 @@
 .about-project__grid {
   display: grid;
-
   padding-top: 70px;
   padding-bottom: 110px;
-
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   gap: 110px 40px;
@@ -12,9 +10,7 @@
 .about-project__header {
   margin: 0 0 26px 0;
   padding: 0;
-
   letter-spacing: -0.04em;
-
   font-family: Inter;
   font-size: 20px;
   font-weight: normal;
@@ -25,7 +21,6 @@
 .about-project__description {
   margin: 0;
   padding: 0;
-
   font-family: Inter;
   font-size: 14px;
   font-weight: normal;
@@ -35,21 +30,17 @@
 
 .about-project__progress-bar {
   display: grid;
-
   padding-bottom: 32px;
-
   grid-template-columns: 1fr 4fr;
 }
 
 /* progress-bar backend */
 .about-project__backend {
   position: relative;
-
   display: block;
-
   width: 100%;
+  min-width: 101px;
   height: 36px;
-
   background-color: #3DDC84;
 }
 
@@ -57,12 +48,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-
   content: '1 неделя';
   transform: translate(-50%, -50%);
-
   color: #000;
-
   font-size: 14px;
   line-height: 17px;
 }
@@ -71,12 +59,9 @@
   position: absolute;
   top: 57px;
   left: 50%;
-
   content: 'Back-end';
   transform: translate(-50%, -50%);
-
   color: #A0A0A0;
-
   font-size: 14px;
   line-height: 17px;
 }
@@ -130,7 +115,6 @@
   .about-project__grid {
     padding-top: 60px;
     padding-bottom: 60px;
-
     grid-template-columns: 1fr;
     gap: 56px 30px;
   }

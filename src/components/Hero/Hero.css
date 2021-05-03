@@ -53,6 +53,8 @@
     margin-top: 14px;
   }
   .hero__banner-header {
+    /* better text-width on small screens */
+    max-width: 95%;
     margin: 220px 0 212px 0;
     max-width: 680px;
     font-size: 29px;

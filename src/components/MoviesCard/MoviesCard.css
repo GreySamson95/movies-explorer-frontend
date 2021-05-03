@@ -10,17 +10,12 @@
   transition: 0.2s;
 }
 
-.movies-card__cover {
-  transform: scale(1.01);
-  transition: 0.3s;
-}
-
-
 .movies-card__cover-image {
   flex: 1 0 auto;
-  width: 100%;
+  max-width: 100%;
   max-height: 203px;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
@@ -49,7 +44,7 @@
 }
 
 .movies-card__duration {
-  font-family: Inter, Helvetica, Arial, Ubuntu, sans-serif;
+  font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 11px;
@@ -57,26 +52,54 @@
   color: #8B8B8B;
 }
 
-.movies-card__button-like {
+.movies-card__button {
   position: absolute;
   top: 8px;
-  right: 20px;
-  padding: 0;
-  margin: 0;
-  outline: none;
-  width: 25px;
-  height: 30px;
-  cursor: pointer;
-  border: none;
+  right: 15px;
   background-color: transparent;
-  background-image: url('../../images/like.svg');
-  background-size: contain;
+  background-image: url("../../images/unlike.svg");
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 30px;
+  height: 30px;
+  border: none;
+}
+
+.movies-card__button_active {
+  background-image: url("../../images/like.svg");
   transition: 0.3s;
 }
 
-.movies-card__button-like-checked {
-  background-image: url('../../images/unlike.svg');
+.movies-card__button_remove {
+  background-image: url("../../images/remove.svg");
   transition: 0.3s;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .movies-card {
+    max-width: 339px;
+    height: 262px;
+  }
+  .movies-card__image {
+    max-height: 190px;
+  }
+  .movies-card__image-description {
+    height: 72px;
+    padding: 14px;
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: 767px) {
+  .movies-card {
+    max-width: 300px;
+    height: 237px;
+  }
+  .movies-card__image {
+    max-height: 168px;
+  }
+  .movies-card__image-description {
+    height: 69px;
+  }
 }

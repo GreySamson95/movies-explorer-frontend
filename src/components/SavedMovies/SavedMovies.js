@@ -1,29 +1,20 @@
-/* eslint-disable */
-import React from 'react';
-import Header from '../Header/Header';
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import ErrorPopup from '../ErrorPopup/ErrorPopup'
+import React from "react";
+import Header from "../Header/Header";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 function SavedMovies() {
-  const [showShortMovies, setShowShortMovies] = React.useState(false);
+  const [showShortMovies, setShowShortMovies] = React.useState(true);
 
   function onCheckBoxToggle(isCheckBoxChecked) {
-    // setShowShortMovies(isCheckBoxChecked);
+    setShowShortMovies(isCheckBoxChecked);
   }
 
   return (
     <>
-      <ErrorPopup />
-      <Header
-        loggedIn
-      />
-      <SearchForm
-        onCheckBoxToggle={onCheckBoxToggle}/>
-      <MoviesCardList
-        onlyFavourite
-        onlyFullMovies={showShortMovies}
-      />
+      <Header loggedIn />
+      <SearchForm onCheckBoxToggle={onCheckBoxToggle} />
+      <MoviesCardList onlyFavourite showShortMovies={showShortMovies} />
     </>
   );
 }

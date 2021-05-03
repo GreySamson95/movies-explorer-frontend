@@ -1,6 +1,6 @@
-import React from 'react';
-import '../SinglePageForm/SinglePageForm.css';
-import SinglePageForm from '../SinglePageForm/SinglePageForm';
+import React from "react";
+import "../SinglePageForm/SinglePageForm.css";
+import SinglePageForm from "../SinglePageForm/SinglePageForm";
 
 function Login() {
   return (
@@ -19,6 +19,7 @@ function Login() {
             className="spf__input"
             placeholder="email@yandex.com"
             id="email"
+            required
           />
         </label>
 
@@ -29,10 +30,11 @@ function Login() {
             className="spf__input"
             id="password"
             placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+            required
+            minLength="4"
           />
         </label>
       </>
-
     </SinglePageForm>
   );
 }

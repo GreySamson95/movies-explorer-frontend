@@ -1,16 +1,13 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-
-import React from 'react';
-import './MoviesCard.css';
-import PropTypes from 'prop-types';
+import React from "react";
+import { useLocation } from "react-router";
+import "./MoviesCard.css";
+import PropTypes from "prop-types";
 
 function MoviesCard(props) {
-  const {
-    duration, cover, title, isFavourite, uniqueId,
-  } = props;
+  const { duration, cover, title, isFavourite, uniqueId } = props;
 
   const [saved, setSaved] = React.useState(isFavourite);
+  const { pathname } = useLocation();
 
   MoviesCard.propTypes = {
     uniqueId: PropTypes.string.isRequired, // Уникальный ID для добавления/удаления из сохранённых
@@ -41,11 +38,17 @@ function MoviesCard(props) {
         <span className="movies-card__title">{title}</span>
         <span className="movies-card__duration">{calcDuration(duration)}</span>
         <button
-          type="button"
           onClick={handleMovieClick}
-          className={`movies-card__button-like ${saved && 'movies-card__button-like-checked'}`}
           id={inputId}
-        />
+          className={`movies-card__button
+          ${saved && pathname === "/movies" && "movies-card__button_active"}
+          ${
+            saved &&
+            (pathname === "/movies"
+              ? "movies-card__button_active"
+              : "movies-card__button_remove")
+          }`}
+        ></button>
       </div>
     </article>
   );

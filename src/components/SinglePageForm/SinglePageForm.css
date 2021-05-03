@@ -26,7 +26,7 @@
 }
 
 .spf__header {
-  margin: 0 0 40px 0;
+  margin: 0 0 16px 0;
   padding: 0;
   font-family: Inter;
   font-style: normal;
@@ -43,17 +43,20 @@
 }
 
 .spf__input {
-  margin-top: 10px;
-  padding: 15px;
-  transition: box-shadow .4s;
-  border-radius: 8px;
+  padding: 5px 0 10px 0;
+  border: 0px;
+  border-bottom: 2px solid #424242;
   color: #fff;
-  border: 1px;
   outline: 0;
-  background-color: #2F2F2F;
+  background-color: #202020;
   caret-color: #4285F4;
   font-size: 13px;
   line-height: 16px;
+}
+
+.spf__input___red::placeholder {
+  color: #EE3465;
+  opacity: 1;
 }
 
 .spf__input:focus {
@@ -69,6 +72,7 @@
   font-size: 10px;
   line-height: 12px;
   color: #8B8B8B;
+  padding-top: 24px;
 }
 
 .spf__input:last-of-type {
@@ -126,4 +130,52 @@
 
 .spf__hint-link:hover {
   opacity: .8;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .spf {
+    justify-content: center;
+    width: 396px;
+    padding: 0;
+  }
+  .spf__form {
+    margin-bottom: 100px;
+  }
+  .spf__logo-link {
+    margin: 0 0 40px 0;
+  }
+  .spf__button {
+    height: 45px;
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: 767px) {
+  .spf {
+    width: calc(100% - (30px * 2));
+    padding: 56px 0 30px 0;
+  }
+  .spf__form {
+    margin-bottom: 100px;
+  }
+  .spf__button {
+    height: 45px;
+    margin-top: 0;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .spf__logo-link {
+    margin: 0 auto 50px auto;
+  }
+  .spf__header {
+    margin: 0 auto 80px auto;
+  }
+  .spf__hint {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .spf__hint-link {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

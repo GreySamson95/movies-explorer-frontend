@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './FilterCheckbox.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./FilterCheckbox.css";
 
 function FilterCheckbox(props) {
   const { identificator, onCheckBoxToggle } = props;

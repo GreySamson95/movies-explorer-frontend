@@ -71,7 +71,6 @@
     width: 84px;
     height: 57px;
   }
-
 }
 
 @media screen and (min-width: 0) and (max-width: 767px) {
@@ -86,7 +85,6 @@
   }
   .techs__icons {
     margin-top: 50px;
-
     grid-template-columns: repeat(auto-fit, minmax(min-content, 89px));
   }
   .techs__icon {

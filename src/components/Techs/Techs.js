@@ -1,17 +1,16 @@
-import React from 'react';
-import Section from '../Section/Section';
-import './Techs.css';
+import React from "react";
+import Section from "../Section/Section";
+import "./Techs.css";
 
 function AboutProject() {
   return (
-    <Section
-      title="Технологии"
-      theme="light"
-      anchor="techs"
-    >
+    <Section title="Технологии" theme="light" anchor="techs">
       <div className="techs__container">
         <h3 className="techs__header">7 технологий</h3>
-        <p className="techs__subheader">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
+        <p className="techs__subheader">
+          На курсе веб-разработки мы освоили технологии, которые применили в
+          дипломном проекте.
+        </p>
         <ul className="techs__icons">
           <li className="techs__icon">HTML</li>
           <li className="techs__icon">CSS</li>
