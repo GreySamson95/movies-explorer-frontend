@@ -1,10 +1,15 @@
-import React from "react";
-import { useLocation } from "react-router";
-import "./MoviesCard.css";
-import PropTypes from "prop-types";
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/button-has-type */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React from 'react';
+import { useLocation } from 'react-router';
+import './MoviesCard.css';
+import PropTypes from 'prop-types';
 
 function MoviesCard(props) {
-  const { duration, cover, title, isFavourite, uniqueId } = props;
+  const {
+    duration, cover, title, isFavourite, uniqueId,
+  } = props;
 
   const [saved, setSaved] = React.useState(isFavourite);
   const { pathname } = useLocation();
@@ -41,14 +46,14 @@ function MoviesCard(props) {
           onClick={handleMovieClick}
           id={inputId}
           className={`movies-card__button
-          ${saved && pathname === "/movies" && "movies-card__button_active"}
+          ${saved && pathname === '/movies' && 'movies-card__button_active'}
           ${
-            saved &&
-            (pathname === "/movies"
-              ? "movies-card__button_active"
-              : "movies-card__button_remove")
+            saved
+            && (pathname === '/movies'
+              ? 'movies-card__button_active'
+              : 'movies-card__button_remove')
           }`}
-        ></button>
+        />
       </div>
     </article>
   );

@@ -1,8 +1,8 @@
-import React from "react";
-import "./MobileNav.css";
-import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import Button from "../Button/Button";
+import React from 'react';
+import './MobileNav.css';
+import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Button from '../Button/Button';
 
 function MobileNav(props) {
   const { isPopUpOpen, onClose } = props;
@@ -12,13 +12,11 @@ function MobileNav(props) {
   };
   // добавление active class для активной ссылки
   const location = useLocation();
-  const moviesActive =
-    location.pathname === "/movies" ? "header__link-active" : "";
-  const savedMoviesActive =
-    location.pathname === "/saved-movies" ? "header__link-active" : "";
+  const moviesActive = location.pathname === '/movies' ? 'header__link-active' : '';
+  const savedMoviesActive = location.pathname === '/saved-movies' ? 'header__link-active' : '';
   // открытие/закрытие попапа
   let showPopUpClass;
-  isPopUpOpen ? (showPopUpClass = "_opened") : (showPopUpClass = "_hided");
+  isPopUpOpen ? (showPopUpClass = '_opened') : (showPopUpClass = '_hided');
 
   const handlePopupClose = () => {
     onClose();

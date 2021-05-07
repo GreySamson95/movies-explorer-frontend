@@ -1,104 +1,116 @@
-import React, { useState, useEffect } from "react";
-import "./MoviesCardList.css";
-import PropTypes from "prop-types";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import Footer from "../Footer/Footer";
-import Preloader from "../Preloader/Preloader";
-import movies from "../../utils/moviesDB";
-
-const moviesPerPage = 6; // Сколько фильмов отображать в начале
-const moviesPerAdding = 3; // Сколько фильмов добавляет кнопка «Ещё»
-// let arrayForHoldingMovies = []; // Массив для хранения фильмов
+/* eslint-disable */
+import React, { useEffect } from 'react';
+import './MoviesCardList.css';
+import PropTypes from 'prop-types';
+import MovieFilter from '../MovieFilter/MovieFilter';
+import Footer from '../Footer/Footer';
+import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList(props) {
-  const { onlyFavourite, showShortMovies } = props;
+  const {
+    movies, showShortMovies, searchKey, isLoading,
+  } = props;
   MoviesCardList.propTypes = {
-    onlyFavourite: PropTypes.bool.isRequired, // Показывать только любимые фильмы?
-    showShortMovies: PropTypes.bool.isRequired, // Показывать только полнометражные фильмы?
-  };
-  let arrayForHoldingMovies = []; // Массив для хранения фильмов
-  // Стейт для фильмов, которые отображаются на странице
-  const [moviesToShow, setMoviesToShow] = useState([]);
-  const [next, setNext] = useState(6); // Стейт для следующих фильмов
-  const [isAdding, setAdding] = useState(false); // Стейт для показа прелоудера
-  const [isShowShortMoviesOn, setShowShortMoviesOn] = useState(true);
-  const [isShowFavouriteMoviesOnlyOn, setShowFavouriteMoviesOnlyOn] = useState(
-    false
-  );
-
-  const filterMovies = (movie) => {
-    let durationCheck;
-    let favouriteCheck;
-
-    isShowShortMoviesOn ? (durationCheck = 0) : (durationCheck = 40);
-
-    isShowFavouriteMoviesOnlyOn ? (favouriteCheck = 0) : (favouriteCheck = -1);
-
-    const pass =
-      movie.duration >= durationCheck && movie.isFavourite > favouriteCheck;
-    return pass;
+    movies: PropTypes.arrayOf(PropTypes.shape({ // Массив объектов с фильмами * Object
+      country: PropTypes.string,
+      created_at: PropTypes.string,
+      description: PropTypes.string,
+      director: PropTypes.string,
+      duration: PropTypes.number,
+      id: PropTypes.number,
+      image: PropTypes.object,
+      nameEN: PropTypes.string,
+      nameRU: PropTypes.string,
+      trailerLink: PropTypes.string,
+      updated_at: PropTypes.string,
+      year: PropTypes.string,
+    })).isRequired,
+    showShortMovies: PropTypes.bool.isRequired, // Показывать короткий метр? * Bool
+    searchKey: PropTypes.string.isRequired, // Ключевые слова для поиска фильмов * String
+    isLoading: PropTypes.bool.isRequired, // Промис pending? * Bool
   };
 
-  // Обрезает массив фильмов и передаёт новый массив
-  const loopWithSlice = (start, end) => {
-    const slicedMovies = movies.slice(start, end);
-    arrayForHoldingMovies = [...moviesToShow, ...slicedMovies];
-    setMoviesToShow(arrayForHoldingMovies);
-  };
+  // Количество фильмов, показываемых изначально (до нажатия на кнопку загрузить ещё)
+  const [visibleMoviesCount, setVisibleMoviesCount] = React.useState(6);
+   /*
+    Показаны все фильмы, соответствующие запросы или можно загрузить ещё?
+    true — фильмов достаточно, false — можно загрузить ещё
+    Управляется функцией handleFoundMoviesAmount()
+  */
+  const [moviesFound, setMoviesFoundAmount] = React.useState(0);
 
   // Обработчик нажатия кнопки добавления фильмов «Ещё»
   const handleShowMoreMovies = () => {
-    loopWithSlice(next, next + moviesPerAdding); // Готовим новый массив фильмов
-    setNext(next + moviesPerAdding); // Меняем начальную точку для следующего добавления
-    setAdding(false); // Скрываем прелоудер
+    setVisibleMoviesCount(visibleMoviesCount + 3);
   };
 
-  // Хардкод для проверки прелоудера
-  const handleShowMoreMoviesWithTimeout = () => {
-    setAdding(true); // Показываем прелоудер
-    setTimeout(handleShowMoreMovies, 2000);
+  const handleButtonAppear = () => {
+    if (moviesFound >= visibleMoviesCount) { // Логика показывания / скрывания кнопки «Ещё»
+      return <button className="movies-card-list__load-more" type="button" onClick={handleShowMoreMovies}>Ещё</button>;
+    }
+    if (moviesFound === 0) {
+      return (
+        <p className="movies-card-list__welcome-screen-text">
+          Ничего не найдено.
+        </p>
+      );
+    }
+    return (
+      <p className="movies-card-list__welcome-screen-text movies-card-list__welcome-screen-text-low">
+        Показаны все найденные фильмы.
+      </p>
+    );
   };
 
-  useEffect(() => {
-    loopWithSlice(0, moviesPerPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Задаём стейт shownEnough в зависимости от количество найденныхи показанных фильмов
+  const handleFoundMoviesAmount = (foundMoviesCounter) => {
+    setMoviesFoundAmount(foundMoviesCounter);
+  };
+
+  // Возвращает разметку при незаданном поиске
+  const returnUntouchedSearchMarkUp = () => (
+    <section className="movies-card-list__welcome-screen">
+      <p className="movies-card-list__welcome-screen-text">
+        Введите название или ключевые слова в строку поиска, чтобы найти фильмы.
+      </p>
+    </section>
+  );
+
+  // Возвращает разметку заданного поиска
+  const returnSearchHandlingMarkUp = () => (
+    isLoading
+      // Если ищем фильмы, то покажем прелоудер, пока они загружаются
+      ? <Preloader />
+      // Если фильмы найдены, передадим компоненту MovieFilter нужные пропсы
+      : (
+        <>
+          <section className="movies-card-list">
+            <MovieFilter // Фильтрует фильмы и возвращает разметку
+              movies={movies} // Массив фильмов * Object
+              moviesPerPage={visibleMoviesCount} // Фильмов на странице * Number
+              showShortMovies={showShortMovies} // Показывать короткометражки? * Bool
+              searchKey={searchKey} // Ключевые слова * String
+              handleFoundMoviesAmount={handleFoundMoviesAmount}
+              // Коллбэк изменения количества фильмов * func
+            />
+          </section>
+          { handleButtonAppear() }
+        </>
+      )
+  );
 
   useEffect(() => {
-    // Обновляем стейт при изменении пропа
-    setShowShortMoviesOn(showShortMovies);
-    setShowFavouriteMoviesOnlyOn(onlyFavourite);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props]);
+    // Сбрасываем количество фильмов на странице при изменении ключевого слова
+    setVisibleMoviesCount(6);
+  }, [searchKey]);
 
   return (
     <>
-      <section className="movies-card-list">
-        {moviesToShow &&
-          moviesToShow
-            .filter(filterMovies)
-            .map((movie) => (
-              <MoviesCard
-                key={movie._id}
-                uniqueId={movie._id}
-                duration={movie.duration}
-                cover={movie.cover}
-                title={movie.title}
-                isFavourite={movie.isFavourite}
-              />
-            ))}
-      </section>
-      {isAdding ? (
-        <Preloader />
-      ) : (
-        <button
-          className="movies-card-list__load-more"
-          type="button"
-          onClick={handleShowMoreMoviesWithTimeout}
-        >
-          Ещё
-        </button>
-      )}
+      {
+        searchKey === ''
+          ? returnUntouchedSearchMarkUp() // Если ещё ничего не искали, то показать welcome-screen
+          : returnSearchHandlingMarkUp() // А если искали, то работаем с фильмами дальше
+      }
       <Footer />
     </>
   );

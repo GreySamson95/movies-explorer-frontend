@@ -1,16 +1,19 @@
-import React from "react";
-import "./Section.css";
-import PropTypes from "prop-types";
+/* eslint-disable react/require-default-props */
+import React from 'react';
+import './Section.css';
+import PropTypes from 'prop-types';
 
 function Section(props) {
-  const { title, children, theme, anchor } = props;
+  const {
+    title, children, theme, anchor,
+  } = props;
   Section.propTypes = {
     title: PropTypes.string.isRequired,
     theme: PropTypes.string,
     anchor: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,
   };
-  let sectionClass = "section";
+  let sectionClass = 'section';
   if (theme) {
     sectionClass += ` section__theme_${theme}`;
   }

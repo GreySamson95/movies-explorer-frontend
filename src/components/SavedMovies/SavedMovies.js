@@ -1,7 +1,7 @@
-import React from "react";
-import Header from "../Header/Header";
-import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import React from 'react';
+import Header from '../Header/Header';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies() {
   const [showShortMovies, setShowShortMovies] = React.useState(true);

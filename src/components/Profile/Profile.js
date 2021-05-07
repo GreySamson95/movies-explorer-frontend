@@ -1,10 +1,10 @@
-import React from "react";
-import Header from "../Header/Header";
-import "./Profile.css";
+import React from 'react';
+import Header from '../Header/Header';
+import './Profile.css';
 
 function Profile() {
-  const [name, setName] = React.useState("Виталий");
-  const [email, setEmail] = React.useState("pochta@yandex.ru");
+  const [name, setName] = React.useState('Виталий');
+  const [email, setEmail] = React.useState('pochta@yandex.ru');
 
   return (
     <>

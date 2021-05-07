@@ -1,6 +1,6 @@
-import React from "react";
-import "../SinglePageForm/SinglePageForm.css";
-import SinglePageForm from "../SinglePageForm/SinglePageForm";
+import React from 'react';
+import '../SinglePageForm/SinglePageForm.css';
+import SinglePageForm from '../SinglePageForm/SinglePageForm';
 
 function Login() {
   return (

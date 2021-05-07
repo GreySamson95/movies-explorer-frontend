@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./SinglePageForm.css";
-import PropTypes from "prop-types";
-import logo from "../../images/logo.svg";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './SinglePageForm.css';
+import PropTypes from 'prop-types';
+import logo from '../../images/logo.svg';
 
 function SinglePageForm(props) {
   const {
@@ -25,7 +25,8 @@ function SinglePageForm(props) {
   /* Симуляция нажатия на отправку формы для проверки статус бара */
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("oops");
+    // eslint-disable-next-line no-console
+    console.log('oops');
   }
 
   return (
@@ -42,7 +43,8 @@ function SinglePageForm(props) {
           {buttonText}
         </button>
         <p className="spf__hint">
-          {hintText}{" "}
+          {hintText}
+          {' '}
           <Link to={hintLinkUrl} className="spf__hint-link">
             {hintLinkText}
           </Link>

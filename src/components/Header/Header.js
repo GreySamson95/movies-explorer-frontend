@@ -1,27 +1,25 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
-import PropTypes from "prop-types";
-import Button from "../Button/Button";
-import "./Header.css";
-import logo from "../../images/logo.svg";
-import MobileNav from "../MobileNav/MobileNav";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+import PropTypes from 'prop-types';
+import Button from '../Button/Button';
+import './Header.css';
+import logo from '../../images/logo.svg';
+import MobileNav from '../MobileNav/MobileNav';
 
 function Header(props) {
   const [isMobileNavClickOpened, setMobileNavClickOpened] = React.useState(
-    false
+    false,
   );
   // добавление active class для активной ссылки
   const location = useLocation();
-  const moviesActive =
-    location.pathname === "/movies" ? "header__link-active" : "";
-  const savedMoviesActive =
-    location.pathname === "/saved-movies" ? "header__link-active" : "";
+  const moviesActive = location.pathname === '/movies' ? 'header__link-active' : '';
+  const savedMoviesActive = location.pathname === '/saved-movies' ? 'header__link-active' : '';
   // хардкод проверки авторизации
   const { loggedIn } = props;
   // Выпадающее меню
   const isDesktop = useMediaQuery({
-    query: "(min-width: 1280px)",
+    query: '(min-width: 1280px)',
   });
   const handleMobileNavClick = () => {
     setMobileNavClickOpened(!isMobileNavClickOpened);
