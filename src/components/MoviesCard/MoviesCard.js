@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable */
 import React from 'react';
 import { useLocation } from 'react-router';
 import './MoviesCard.css';
@@ -8,18 +6,18 @@ import PropTypes from 'prop-types';
 
 function MoviesCard(props) {
   const {
-    duration, cover, title, isFavourite, uniqueId,
+    duration, cover, title, trailerLink, uniqueId, handleMovieLike, wholeMovie
   } = props;
 
-  const [saved, setSaved] = React.useState(isFavourite);
+  const [saved, setSaved] = React.useState(false);
   const { pathname } = useLocation();
 
   MoviesCard.propTypes = {
-    uniqueId: PropTypes.string.isRequired, // Уникальный ID для добавления/удаления из сохранённых
+    uniqueId: PropTypes.number.isRequired, // Уникальный ID для добавления/удаления из сохранённых
     duration: PropTypes.number.isRequired, // Длительность в минутах
-    cover: PropTypes.string.isRequired, // Изображение карточки
+    cover: PropTypes.object.isRequired, // Изображение карточки
     title: PropTypes.string.isRequired, // Название фильма
-    isFavourite: PropTypes.bool.isRequired, // Добавлено в любимые? Bool
+    trailerLink: PropTypes.string.isRequired,
   };
 
   function calcDuration(movieDurationInMinutes) {
@@ -30,15 +28,16 @@ function MoviesCard(props) {
 
   function handleMovieClick() {
     setSaved(!saved);
+    handleMovieLike(wholeMovie);
   }
 
   const inputId = `favourite${uniqueId}`;
 
   return (
     <article className="movies-card">
-      <label htmlFor={inputId} className="movies-card__cover">
+      <a href={trailerLink} target="_blank" className="movies-card__cover">
         <img src={cover} className="movies-card__cover-image" alt={title} />
-      </label>
+      </a>
       <div className="movies-card__image-description">
         <span className="movies-card__title">{title}</span>
         <span className="movies-card__duration">{calcDuration(duration)}</span>

@@ -73,6 +73,9 @@
   line-height: 12px;
   color: #8B8B8B;
   padding-top: 24px;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .spf__input:last-of-type {
@@ -105,6 +108,11 @@
   outline: 0;
 }
 
+.spf__button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
 .spf__hint {
   margin: 16px 0 0 0;
   font-family: Inter;
@@ -131,6 +139,28 @@
 .spf__hint-link:hover {
   opacity: .8;
 }
+
+.spf__error {
+  box-shadow: 0px 0px 0px 1px #EE3465 inset;
+}
+
+.spf__error:focus {
+  box-shadow: 0px 0px 0px 1px #EE3465 inset;
+}
+
+.spf__error-message {
+  display: none;
+  color: #EE3465;
+  position: absolute;
+  transform: translate(-5px, 15px);
+  bottom: 0;
+  right: 0;
+}
+
+.spf__error-message_shown {
+  display: block;
+}
+
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .spf {

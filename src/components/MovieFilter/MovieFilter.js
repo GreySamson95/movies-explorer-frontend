@@ -5,7 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MovieFilter(props) {
   const {
-    movies, moviesPerPage, showShortMovies, searchKey, handleFoundMoviesAmount,
+    movies, moviesPerPage, showShortMovies, searchKey, handleFoundMoviesAmount, handleMovieLike,
   } = props;
 
   MovieFilter.propTypes = {
@@ -28,6 +28,7 @@ function MovieFilter(props) {
     searchKey: PropTypes.string.isRequired, // Ключевые слова для поиска фильмов * String
     // Обработчик нажатия кнопки добавления фильмов «Ещё» * Func:
     handleFoundMoviesAmount: PropTypes.func.isRequired,
+    handleMovieLike: PropTypes.func.isRequired,
   };
 
   // Стейт количества отображаемых фильмов
@@ -60,7 +61,7 @@ function MovieFilter(props) {
     return pass;
   };
 
-  function createArr() {
+  function createFilteredMoviesMarkUp() {
     // Фильтрует массив и возвращает разметку
     const filteredMovies = movies
       .filter(filterSearch) // Фильтр по ключевому слову
@@ -75,7 +76,9 @@ function MovieFilter(props) {
           duration={movie.duration}
           cover={movie}
           title={movie.nameRU}
-          isFavourite={movie.isFavourite}
+          trailerLink={movie.trailerLink}
+          handleMovieLike={handleMovieLike}
+          wholeMovie={movie}
         />
       ));
   }
@@ -86,7 +89,7 @@ function MovieFilter(props) {
 
   return (
     <>
-      { createArr() }
+      { createFilteredMoviesMarkUp() }
     </>
   );
 }

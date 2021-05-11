@@ -8,7 +8,7 @@ import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList(props) {
   const {
-    movies, showShortMovies, searchKey, isLoading,
+    movies, showShortMovies, searchKey, isLoading, handleMovieLike, favouriteOnly,
   } = props;
   MoviesCardList.propTypes = {
     movies: PropTypes.arrayOf(PropTypes.shape({ // Массив объектов с фильмами * Object
@@ -28,16 +28,20 @@ function MoviesCardList(props) {
     showShortMovies: PropTypes.bool.isRequired, // Показывать короткий метр? * Bool
     searchKey: PropTypes.string.isRequired, // Ключевые слова для поиска фильмов * String
     isLoading: PropTypes.bool.isRequired, // Промис pending? * Bool
+    handleMovieLike: PropTypes.func.isRequired,
+    favouriteOnly: PropTypes.bool,
   };
+
+  MoviesCardList.defaultProps = {
+    favouriteOnly: false,
+  };
+
 
   // Количество фильмов, показываемых изначально (до нажатия на кнопку загрузить ещё)
   const [visibleMoviesCount, setVisibleMoviesCount] = React.useState(6);
-   /*
-    Показаны все фильмы, соответствующие запросы или можно загрузить ещё?
-    true — фильмов достаточно, false — можно загрузить ещё
-    Управляется функцией handleFoundMoviesAmount()
-  */
-  const [moviesFound, setMoviesFoundAmount] = React.useState(0);
+  let foundMovies = 0; // Количество найденных фильмов
+
+  const [moviesFound, setMoviesFoundAmount] = React.useState(0); // Стейт найденных
 
   // Обработчик нажатия кнопки добавления фильмов «Ещё»
   const handleShowMoreMovies = () => {
@@ -45,32 +49,32 @@ function MoviesCardList(props) {
   };
 
   const handleButtonAppear = () => {
-    if (moviesFound >= visibleMoviesCount) { // Логика показывания / скрывания кнопки «Ещё»
+    if (moviesFound > visibleMoviesCount) { // Логика показывания / скрывания кнопки «Ещё»
       return <button className="movies-card-list__load-more" type="button" onClick={handleShowMoreMovies}>Ещё</button>;
     }
     if (moviesFound === 0) {
       return (
-        <p className="movies-card-list__welcome-screen-text">
-          Ничего не найдено.
+        <p className="movies-card-list__message">
+          {favouriteOnly ? 'Вы ещё не сохранили ни одного фильма.' : 'Ничего не найдено.'}
         </p>
       );
     }
     return (
-      <p className="movies-card-list__welcome-screen-text movies-card-list__welcome-screen-text-low">
-        Показаны все найденные фильмы.
+      <p className="movies-card-list__message">
+        {`Показаны все (${moviesFound}) найденные фильмы по запросу «${searchKey}»`}
       </p>
     );
   };
 
   // Задаём стейт shownEnough в зависимости от количество найденныхи показанных фильмов
   const handleFoundMoviesAmount = (foundMoviesCounter) => {
-    setMoviesFoundAmount(foundMoviesCounter);
+    foundMovies = foundMoviesCounter;
   };
 
   // Возвращает разметку при незаданном поиске
   const returnUntouchedSearchMarkUp = () => (
     <section className="movies-card-list__welcome-screen">
-      <p className="movies-card-list__welcome-screen-text">
+      <p className="movies-card-list__message">
         Введите название или ключевые слова в строку поиска, чтобы найти фильмы.
       </p>
     </section>
@@ -91,6 +95,7 @@ function MoviesCardList(props) {
               showShortMovies={showShortMovies} // Показывать короткометражки? * Bool
               searchKey={searchKey} // Ключевые слова * String
               handleFoundMoviesAmount={handleFoundMoviesAmount}
+              handleMovieLike={handleMovieLike}
               // Коллбэк изменения количества фильмов * func
             />
           </section>
@@ -104,10 +109,14 @@ function MoviesCardList(props) {
     setVisibleMoviesCount(6);
   }, [searchKey]);
 
+  useEffect(() => {
+    setMoviesFoundAmount(foundMovies);
+  }, [handleFoundMoviesAmount]);
+
   return (
     <>
       {
-        searchKey === ''
+        searchKey === '' && !favouriteOnly
           ? returnUntouchedSearchMarkUp() // Если ещё ничего не искали, то показать welcome-screen
           : returnSearchHandlingMarkUp() // А если искали, то работаем с фильмами дальше
       }

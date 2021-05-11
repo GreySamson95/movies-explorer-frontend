@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable */
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './SinglePageForm.css';
 import PropTypes from 'prop-types';
@@ -12,6 +13,9 @@ function SinglePageForm(props) {
     hintLinkText,
     hintLinkUrl,
     children,
+    onSubmit,
+    inputData,
+    isFormValid
   } = props;
   SinglePageForm.propTypes = {
     header: PropTypes.string.isRequired, // Заголовок формы
@@ -20,13 +24,13 @@ function SinglePageForm(props) {
     hintLinkText: PropTypes.string.isRequired, // Текст ссылки в подсказке (вход / регистрация)
     children: PropTypes.element.isRequired, // Дочерние импуты формы
     hintLinkUrl: PropTypes.string.isRequired, // Адрес ссылки в подсказке
+    onSubmit: PropTypes.func.isRequired,
   };
 
   /* Симуляция нажатия на отправку формы для проверки статус бара */
-  function handleSubmit(event) {
-    event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log('oops');
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    onSubmit(inputData);
   }
 
   return (
@@ -36,10 +40,10 @@ function SinglePageForm(props) {
           <img className="spf__logo" src={logo} alt="Логотип Movies Explorer" />
         </Link>
         <h1 className="spf__header">{header}</h1>
-        <form className="spf__form" id="spf" onSubmit={handleSubmit}>
+        <form className="spf__form" id="spf" onSubmit={(e) => handleFormSubmit(e)} noValidate>
           {children}
         </form>
-        <button form="spf" className="spf__button" type="submit">
+        <button form="spf" className="spf__button" type="submit" disabled={isFormValid == 0}>
           {buttonText}
         </button>
         <p className="spf__hint">
