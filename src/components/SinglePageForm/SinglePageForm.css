@@ -82,6 +82,21 @@
   margin-bottom: 0;
 }
 
+.spf__submit-error {
+  display: none;
+  margin: 10px auto -22px auto;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
+.spf__submit-error_show {
+  display: block;
+}
+
 .spf__button {
   margin-top: auto;
   background: #4285F4;

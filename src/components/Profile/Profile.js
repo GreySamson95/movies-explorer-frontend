@@ -4,11 +4,22 @@ import { UserContext } from '../../contexts/userContext';
 import Header from '../Header/Header';
 import './Profile.css';
 
-function Profile() {
+function Profile(props) {
+  const { updateUserData, onLogout } = props;
+
   const user = React.useContext(UserContext);
   const [name, setName] = React.useState(user.name);
   const [email, setEmail] = React.useState(user.email);
   const [isFormValid, setFormValidty] = React.useState(false);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    updateUserData({name, email});
+  };
+
+  const handleLogOut = () => {
+    onLogout();
+  }
 
   const handleInputError = (input, message, isError) => {
     /* Логика отображения ошибки для инпута */
@@ -73,7 +84,7 @@ function Profile() {
       />
       <div className="profile">
         <h1 className="profile__header">Привет, Виталий!</h1>
-        <form className="profile__form" id="profile">
+        <form className="profile__form" id="profile" onSubmit={(e) => handleFormSubmit(e)} noValidate>
           <label className="profile__label" htmlFor="name">
             Имя
             <input
@@ -114,7 +125,7 @@ function Profile() {
         </form>
         <div className="profile__buttons">
           <button className="profile__button profile__button_type_submit" type="submit" form="profile" disabled={!isFormValid}>Редактировать</button>
-          <button className="profile__button profile__button_type_logout" type="button">Выйти из аккаунта</button>
+          <button className="profile__button profile__button_type_logout" type="button" onClick={handleLogOut}>Выйти из аккаунта</button>
         </div>
       </div>
     </>

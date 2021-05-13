@@ -20,7 +20,22 @@ function App() {
     id: '',
   })
 
-  // const history = useHistory();
+  const history = useHistory();
+
+  const updateUserData = (newData) => {
+    console.log(newData)
+    const jwt = localStorage.getItem('jwt');
+    mainApi.updateUser(newData, jwt)
+    .then((res) => {
+      console.log(res)
+    })
+  }
+
+  const logout = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    history.push('/signin');
+  }
 
   const tokenCheck = () => {
     /*
@@ -95,6 +110,8 @@ function App() {
           path="/profile"
           component={Profile}
           isLoggedIn={isLoggedIn}
+          updateUserData={updateUserData}
+          onLogout={logout}
         />
         <Route path="*">
           <NotFound />

@@ -1,4 +1,4 @@
-/*eslint-disable*/
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -17,11 +17,11 @@ function Login(props) {
   const [password, setPassword] = React.useState('');
 
   const [isFormValid, setFormValidty] = React.useState(false);
+  const [submitErrorText, setSubmitErrorText] = React.useState('');
 
   const history = useHistory();
 
   const handleSubmit = (validData) => {
-    console.log('клик');
     /* Логика сабмита форма регистрации */
     mainApi.authorize(
       {
@@ -34,7 +34,7 @@ function Login(props) {
           setEmail('');
           setPassword('');
           // handleToolTipOpen({ success: true });
-          console.log(handleLogin(res.token))
+          console.log(handleLogin(res.token));
           history.push('/movies');
         } else {
           // handleToolTipOpen({
@@ -105,6 +105,7 @@ function Login(props) {
       onSubmit={handleSubmit}
       inputData={{ email, password }}
       isFormValid={isFormValid}
+      submitErrorText={submitErrorText}
     >
       <>
         <label htmlFor="email" className="spf__label">
@@ -124,7 +125,7 @@ function Login(props) {
             value={email}
             required
           />
-          <span className="spf__error-message" id="emailError"></span>
+          <span className="spf__error-message" id="emailError" />
         </label>
 
         <label htmlFor="password" className="spf__label">
@@ -137,7 +138,7 @@ function Login(props) {
             required
             minLength="4"
           />
-          <span className="spf__error-message" id="passwordError"></span>
+          <span className="spf__error-message" id="passwordError" />
         </label>
       </>
     </SinglePageForm>
