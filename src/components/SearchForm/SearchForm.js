@@ -1,5 +1,6 @@
+/* eslint-disable func-names */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './SearchForm.css';
 import Button from '../Button/Button';
@@ -36,6 +37,7 @@ function SearchForm(props) {
       .validity
       .valid;
     setErrorShown(!isValid);
+    localStorage.removeItem('searchKey');
     return isValid;
   };
 
@@ -43,8 +45,22 @@ function SearchForm(props) {
     e.preventDefault();
     if (validateForm(e.target)) {
       onFormSubmit(userInput);
+      localStorage.setItem('searchKey', userInput);
     }
   };
+
+  useEffect(() => { // Изменение количества отображаемых фильмов при изменении стейта
+    const savedSearchKey = localStorage.getItem('searchKey');
+    if (savedSearchKey) {
+      setUserInput(savedSearchKey);
+      onFormSubmit(userInput);
+    }
+
+    return function () {
+      localStorage.removeItem('searchKey');
+      setUserInput('');
+    };
+  }, []);
 
   isErrorShown
     ? errorClasses = {

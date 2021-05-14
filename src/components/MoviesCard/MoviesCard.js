@@ -1,59 +1,72 @@
-/* eslint-disable */
-import React from 'react';
-import { useLocation } from 'react-router';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable  */
+import React, { useEffect } from 'react';
 import './MoviesCard.css';
 import PropTypes from 'prop-types';
+import noCover from '../../images/no-cover.png';
 
 function MoviesCard(props) {
   const {
-    duration, cover, title, trailerLink, uniqueId, handleMovieLike, wholeMovie
+    defMovieLike, duration, cover, title, trailerLink, uniqueId, isLiked, handleMovieLike, wholeMovie
   } = props;
 
-  const [saved, setSaved] = React.useState(false);
-  const { pathname } = useLocation();
+  const [isHovered, setHovered] = React.useState(false);
+  const [isChecked, setChecked] = React.useState(defMovieLike(wholeMovie));
 
   MoviesCard.propTypes = {
     uniqueId: PropTypes.number.isRequired, // Уникальный ID для добавления/удаления из сохранённых
     duration: PropTypes.number.isRequired, // Длительность в минутах
     cover: PropTypes.object.isRequired, // Изображение карточки
     title: PropTypes.string.isRequired, // Название фильма
-    trailerLink: PropTypes.string.isRequired,
+    trailerLink: PropTypes.string,
+    defMovieLike: PropTypes.func.isRequired,
   };
 
   function calcDuration(movieDurationInMinutes) {
+    /*
+    Вычисляет длительность фильма в часах и минутах
+    и возвращает строку вида '2ч 14м'
+    */
     const hours = Math.floor(movieDurationInMinutes / 60);
     const minutes = Math.floor(movieDurationInMinutes - hours * 60);
     return `${hours}ч ${minutes}м`;
   }
 
-  function handleMovieClick() {
-    setSaved(!saved);
-    handleMovieLike(wholeMovie);
+  function onChange() {
+    handleMovieLike(wholeMovie, isChecked);
+    setChecked(!isChecked);
   }
 
+  let inputOpenClass;
+  isHovered
+  ? inputOpenClass = 'show'
+  : inputOpenClass = ''
+
   const inputId = `favourite${uniqueId}`;
+  const movieImage = cover.image ? `https://api.nomoreparties.co${cover.image.url}` : noCover;
+
+  useEffect(() => {
+    defMovieLike(wholeMovie);
+  }, []);
 
   return (
-    <article className="movies-card">
-      <a href={trailerLink} target="_blank" className="movies-card__cover">
-        <img src={cover} className="movies-card__cover-image" alt={title} />
+    <article
+    onMouseEnter={(e) => setHovered(true)}
+    onMouseLeave={(e) => setHovered(false)}
+    className="movies-card">
+      <a
+      href={trailerLink ? trailerLink : ''} target="_blank" className="movies-card__cover">
+        <img src={movieImage} className="movies-card__cover-image" alt={title} />
       </a>
-      <div className="movies-card__image-description">
-        <span className="movies-card__title">{title}</span>
-        <span className="movies-card__duration">{calcDuration(duration)}</span>
-        <button
-          onClick={handleMovieClick}
-          id={inputId}
-          className={`movies-card__button
-          ${saved && pathname === '/movies' && 'movies-card__button_active'}
-          ${
-            saved
-            && (pathname === '/movies'
-              ? 'movies-card__button_active'
-              : 'movies-card__button_remove')
-          }`}
-        />
-      </div>
+      <h4 className="movies-card__title">{title}</h4>
+      <span className="movies-card__duration">{calcDuration(duration)}</span>
+      <input
+        className={`movies-card__save-button ${inputOpenClass}`}
+        type="checkbox"
+        id={inputId}
+        checked={isChecked}
+        onChange={(e) => onChange(e)}
+      />
     </article>
   );
 }

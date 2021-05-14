@@ -5,7 +5,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MovieFilter(props) {
   const {
-    movies, moviesPerPage, showShortMovies, searchKey, handleFoundMoviesAmount, handleMovieLike,
+    movies, moviesPerPage, showShortMovies, searchKey, handleFoundMoviesAmount,
+    handleMovieLike, defMovieLike, onlyFavourite,
   } = props;
 
   MovieFilter.propTypes = {
@@ -29,6 +30,12 @@ function MovieFilter(props) {
     // Обработчик нажатия кнопки добавления фильмов «Ещё» * Func:
     handleFoundMoviesAmount: PropTypes.func.isRequired,
     handleMovieLike: PropTypes.func.isRequired,
+    defMovieLike: PropTypes.func.isRequired,
+    onlyFavourite: PropTypes.bool,
+  };
+
+  MovieFilter.defaultProps = {
+    onlyFavourite: false,
   };
 
   // Стейт количества отображаемых фильмов
@@ -63,14 +70,41 @@ function MovieFilter(props) {
 
   function createFilteredMoviesMarkUp() {
     // Фильтрует массив и возвращает разметку
+
     const filteredMovies = movies
       .filter(filterSearch) // Фильтр по ключевому слову
       .filter(filterDuration); // Фильтр по длительности
     handleFoundMoviesAmount(filteredMovies.length); // Обработчик количество найденных фильмов
+
     return filteredMovies
       .slice(0, visibleMovies) // Обрезаем массив до нужного количества
       .map((movie) => ( // Создаём карточки с фильмом
         <MoviesCard
+          defMovieLike={defMovieLike}
+          key={movie.id}
+          uniqueId={movie.id}
+          duration={movie.duration}
+          cover={movie}
+          title={movie.nameRU}
+          trailerLink={movie.trailerLink}
+          handleMovieLike={handleMovieLike}
+          wholeMovie={movie}
+        />
+      ));
+  }
+
+  function createFavouriteMoviesMarkUp() {
+    // Фильтрует массив и возвращает разметку
+
+    const filteredMovies = movies
+      .filter(filterSearch) // Фильтр по ключевому слову
+      .filter(filterDuration); // Фильтр по длительности
+    handleFoundMoviesAmount(filteredMovies.length); // Обработчик количество найденных фильмов
+
+    return filteredMovies
+      .map((movie) => ( // Создаём карточки с фильмом
+        <MoviesCard
+          defMovieLike={defMovieLike}
           key={movie.id}
           uniqueId={movie.id}
           duration={movie.duration}
@@ -89,7 +123,9 @@ function MovieFilter(props) {
 
   return (
     <>
-      { createFilteredMoviesMarkUp() }
+      { onlyFavourite
+        ? createFavouriteMoviesMarkUp()
+        : createFilteredMoviesMarkUp() }
     </>
   );
 }

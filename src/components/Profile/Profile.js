@@ -1,11 +1,11 @@
-/*eslint-disable*/
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { UserContext } from '../../contexts/userContext';
 import Header from '../Header/Header';
 import './Profile.css';
 
 function Profile(props) {
-  const { updateUserData, onLogout } = props;
+  const { updateUserData, onLogout, message } = props;
 
   const user = React.useContext(UserContext);
   const [name, setName] = React.useState(user.name);
@@ -14,12 +14,12 @@ function Profile(props) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    updateUserData({name, email});
+    updateUserData({ name, email });
   };
 
   const handleLogOut = () => {
     onLogout();
-  }
+  };
 
   const handleInputError = (input, message, isError) => {
     /* Логика отображения ошибки для инпута */
@@ -69,8 +69,6 @@ function Profile(props) {
         emailInput.setCustomValidity('');
       }
     });
-
-
   };
 
   useEffect(() => {
@@ -83,7 +81,11 @@ function Profile(props) {
         loggedIn
       />
       <div className="profile">
-        <h1 className="profile__header">Привет, Виталий!</h1>
+        <h1 className="profile__header">
+          Привет,
+          {name}
+          !
+        </h1>
         <form className="profile__form" id="profile" onSubmit={(e) => handleFormSubmit(e)} noValidate>
           <label className="profile__label" htmlFor="name">
             Имя
@@ -94,14 +96,14 @@ function Profile(props) {
               value={name}
               maxLength="25"
               minLength="2"
-              pattern="^(?! )[A-Za-zА-Яа-яЁё\- ]*[^\s]"
+              pattern="^[А-Яа-яa-zA-Z]+(([' -][А-Яа-яa-zA-Z ])?[А-Яа-яa-zA-Z]*)*$"
               required
               onChange={(e) => {
                 setName(e.target.value);
                 validateInputOnChange(e);
               }}
             />
-            <span className="profile__error-message" id="nameError"></span>
+            <span className="profile__error-message" id="nameError" />
           </label>
           <hr className="profile__divider" />
           <label className="profile__label" htmlFor="email">
@@ -120,7 +122,7 @@ function Profile(props) {
                 validateInputOnChange(e);
               }}
             />
-            <span className="profile__error-message" id="emailError"></span>
+            <span className="profile__error-message" id="emailError" />
           </label>
         </form>
         <div className="profile__buttons">

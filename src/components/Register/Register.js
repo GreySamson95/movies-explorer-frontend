@@ -1,40 +1,39 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import '../SinglePageForm/SinglePageForm.css';
 import SinglePageForm from '../SinglePageForm/SinglePageForm';
-import mainApi from '../../utils/MainApi';
 
-function Register() {
+function Register(props) {
+  const { signup, APIError, isLoggedIn } = props;
+
+  Register.propTypes = {
+    signup: PropTypes.func.isRequired, // Функция регистрации
+    APIError: PropTypes.string.isRequired, // Текст ошибки формы
+    isLoggedIn: PropTypes.bool.isRequired,
+  };
+
+  const history = useHistory();
+
   const [name, setName] = React.useState(''); // Стейт для имени
   const [email, setEmail] = React.useState(''); // Стейт для почты
   const [password, setPassword] = React.useState(''); // Стейт для пароля
 
-  const [isFormValid, setFormValidity] = React.useState(false); // Стейт валидности всей формы
-  const [submitErrorText, setSubmitErrorText] = React.useState(''); // Текст ошибки API
-
-  const history = useHistory();
+  const [isFormValid, setFormValidity] = React.useState(false); // Стейт валидности всей форм
 
   const handleSubmit = () => {
-    /* Логика сабмита форма регистрации */
-    mainApi.signUpUser(
-      { name, email, password },
-    )
-      .then(() => { // API вернул статус 200 при регистрации
-        setSubmitErrorText(''); // Убрали ошибку формы
-        history.push('/signin'); // Переадресация на логин
-      /* Переадресация на логин позволит отправить запрос на авторизацию,
-      получить токен и после этого переадресовать на /movies */
-      })
-      .catch((error) => { // API вернулся с ошибкой
-        setSubmitErrorText(error.message); // Показываем ошибку
-        setFormValidity(false); // Делаем форму невалидной
-      });
+    /* Логика сабмита формы регистрации */
+
+    // Отправляем запрос:
+    signup(name, email, password);
+
+    // Делаем форму невалидной:
+    setFormValidity(false);
   };
 
   const handleInputError = (input, message, isError) => {
     /* Логика отображения ошибки для инпута */
     const inputError = document.getElementById(`${input.id}Error`);
-    input.classList.toggle('spf__error', isError);
     inputError.textContent = message;
     inputError.classList.toggle('spf__error-message_shown', isError);
   };
@@ -86,7 +85,7 @@ function Register() {
     const passwordInput = document.getElementById('password');
     passwordInput.addEventListener('input', () => {
       if (passwordInput.validity.tooShort) {
-        passwordInput.setCustomValidity(`Слишком простой пароль, минимум 8 символов: [${passwordInput.value.length}/8].`);
+        passwordInput.setCustomValidity(`Слишком короткий пароль, минимум 8 символов (Сейчас ${passwordInput.value.length}).`);
       } else {
         passwordInput.setCustomValidity('');
       }
@@ -98,6 +97,10 @@ function Register() {
     setIputListeners();
   }, []);
 
+  useEffect(() => {
+    isLoggedIn && history.push('/movies');
+  }, [isLoggedIn]);
+
   return (
     <>
       <SinglePageForm
@@ -108,7 +111,7 @@ function Register() {
         hintLinkUrl="/signin"
         onSubmit={handleSubmit}
         isFormValid={isFormValid}
-        submitErrorText={submitErrorText}
+        submitErrorText={APIError}
       >
         <>
           <label htmlFor="name" className="spf__label">
@@ -123,12 +126,13 @@ function Register() {
                 setName(e.target.value);
                 validateInputOnChange(e);
               }}
+              value={name}
               maxLength="25"
               minLength="2"
-              pattern="^(?! )[A-Za-zА-Яа-яЁё\- ]*[^\s]"
+              pattern="^[А-Яа-яa-zA-Z]+(([' -][А-Яа-яa-zA-Z ])?[А-Яа-яa-zA-Z]*)*$"
               required
             />
-            <span className="spf__error-message" id="nameError">Ошибка.</span>
+            <span className="spf__error-message" id="nameError">Ошибка ввода.</span>
           </label>
 
           <label htmlFor="email" className="spf__label">
@@ -145,9 +149,10 @@ function Register() {
                 setEmail(e.target.value);
                 validateInputOnChange(e);
               }}
+              value={email}
               required
             />
-            <span className="spf__error-message" id="emailError">Ошибка.</span>
+            <span className="spf__error-message" id="emailError">Ошибка ввода.</span>
           </label>
 
           <label htmlFor="password" className="spf__label">
@@ -163,9 +168,10 @@ function Register() {
                 setPassword(e.target.value);
                 validateInputOnChange(e);
               }}
+              value={password}
               minLength="8"
             />
-            <span className="spf__error-message" id="passwordError">Ошибка.</span>
+            <span className="spf__error-message" id="passwordError">Ошибка ввода.</span>
           </label>
         </>
       </SinglePageForm>
