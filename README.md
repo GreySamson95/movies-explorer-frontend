@@ -1,4 +1,5 @@
 # Фронтэнд для Movies Explorer
+К приложению можно обратить по адресу greysamson.nomoredomains.club
 Макет Figma — https://www.figma.com/file/ZZ8NUFXO7n7U5tWUU0Ja66/Diploma-Copy?node-id=891%3A3857 
 
 ### Роуты:
