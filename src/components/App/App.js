@@ -37,8 +37,8 @@ function App() {
       .then((favouriteMovies) => { // Перебираем любимые фильмы
         setLikedMovies(favouriteMovies);
         // return movies // Находим пролайканные фильмы среди всех фильмов
-        //     .filter((movie) => favouriteMovies
-        //     .some((likedMovie) => likedMovie.movieId === movie.id))
+        //   .filter((movie) => favouriteMovies
+        //     .some((likedMovie) => likedMovie.movieId === movie.id));
       })
       .catch((err) => {
         console.log(err.message);
