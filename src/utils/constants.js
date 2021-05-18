@@ -17,4 +17,6 @@ const MOVIES_AMOUNT_BY_DEVICE = {
   },
 };
 
+export const SHORT_MOVIE_DURATION = 40;
+
 export default MOVIES_AMOUNT_BY_DEVICE;

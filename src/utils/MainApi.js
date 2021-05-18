@@ -103,8 +103,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: 'https://api.greysamson.nomoredomains.club',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.greysamson.nomoredomains.club',
+  // baseUrl: 'http://localhost:3000',
 });
 
 export default mainApi;

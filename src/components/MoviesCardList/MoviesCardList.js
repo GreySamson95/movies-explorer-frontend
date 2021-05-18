@@ -152,16 +152,16 @@ function MoviesCardList(props) {
   }, []);
 
   useEffect(() => {
-    screenWidth;
-    if (screenWidth <= 480) {
+    const width = window.screen.width;
+    if (width <= 480) {
       setVisibleMoviesCount(MOVIES_AMOUNT_BY_DEVICE.SMALL.VISIBLE);
       setAddMoreCount(MOVIES_AMOUNT_BY_DEVICE.SMALL.ADDMORE);
     }
-    if (screenWidth > 480 && screenWidth <= 768) {
+    if (width > 480 && screenWidth <= 768) {
       setVisibleMoviesCount(MOVIES_AMOUNT_BY_DEVICE.MEDIUM.VISIBLE);
       setAddMoreCount(MOVIES_AMOUNT_BY_DEVICE.MEDIUM.ADDMORE);
     }
-    if (screenWidth > 768) {
+    if (width > 768) {
       setVisibleMoviesCount(MOVIES_AMOUNT_BY_DEVICE.LARGE.VISIBLE);
       setAddMoreCount(MOVIES_AMOUNT_BY_DEVICE.LARGE.ADDMORE);
     }

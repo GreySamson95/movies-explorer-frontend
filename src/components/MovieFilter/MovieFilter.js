@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
 function MovieFilter(props) {
   const {
@@ -42,16 +43,10 @@ function MovieFilter(props) {
   const [visibleMovies, setVisibleMovies] = React.useState(moviesPerPage);
 
   const filterDuration = (movie) => {
-    /*
-      Возвращает true, если
-      movie.duration больше или равно указанному
-      movie — объект фильма
-    */
-    let durationCheck;
-    showShortMovies
-      ? durationCheck = 0
-      : durationCheck = 40;
-    const pass = (movie.duration >= durationCheck);
+    let pass = true;
+    if (showShortMovies && movie.duration > SHORT_MOVIE_DURATION) {
+      pass = false;
+    }
     return pass;
   };
 

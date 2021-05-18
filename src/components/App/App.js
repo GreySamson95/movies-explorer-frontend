@@ -11,6 +11,7 @@ import NotFound from '../NotFound/NotFound';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import InformationPopup from '../InformationPopup/InformationPopup';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 
@@ -25,6 +26,7 @@ function App() {
   const [movies, setMovies] = React.useState([]);
   const [likedMovies, setLikedMovies] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [informationPopupOpenMessage, setInformationPopupMessage] = React.useState('');
 
   const history = useHistory();
 
@@ -104,7 +106,6 @@ function App() {
     isLiked // Лайк стоит?
       ? dislikeMovie(movie) // Стоит, нужно убрать
       : likeMovie(movie);// Не стоит, нужно поставить
-    console.log(isLiked);
   };
 
   const defMovieLike = (movie) => likedMovies.some((likedMovie) => likedMovie.id === movie.id);
@@ -113,6 +114,10 @@ function App() {
     return movies
       .filter((movie) => likedMovies
         .some((likedMovie) => likedMovie.id === movie.id));
+  }
+
+  function handleSubmitInformationPopup() {
+    setInformationPopupMessage('');
   }
 
   /*
@@ -159,6 +164,7 @@ function App() {
         checkTokenAndGetUserData(); // Получили пользовательские данные
         setAPIError(''); // Убрали ошибку формы
         setLoggedIn(true);
+        setInformationPopupMessage('Вы успешно авторизировались');
         history.push('/movies'); // Переадресация на movies
       })
       .catch((error) => { // API вернулся с ошибкой
@@ -176,6 +182,7 @@ function App() {
       .then(() => { // API вернул статус 2xx при регистрации
         setAPIError(''); // Убрали ошибку формы
         login(email, password);
+        setInformationPopupMessage('Вы успешно зарегистрировались');
       })
       .catch((error) => { // API вернулся с ошибкой
         setAPIErrorWithTimer(error.message); // Показываем ошибку
@@ -189,6 +196,7 @@ function App() {
       .then(() => {
         checkTokenAndGetUserData();
         setAPIErrorWithTimer('Данные пользователя успешно обновлены.');
+        setInformationPopupMessage('Данные пользователя успешно обновлены');
       })
       .catch(() => {
         setAPIErrorWithTimer('Не получить обновить данные.');
@@ -270,6 +278,10 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
+        <InformationPopup
+          message={informationPopupOpenMessage}
+          onSubmit={handleSubmitInformationPopup}
+        />
       </UserContext.Provider>
     </>
   );
