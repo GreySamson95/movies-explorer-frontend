@@ -1,8 +1,8 @@
-import React from "react";
-import Section from "../Section/Section";
-import Portfolio from "../Portfolio/Portfolio";
-import "./AboutMe.css";
-import avatar from "../../images/avatar.png";
+import React from 'react';
+import Section from '../Section/Section';
+import Portfolio from '../Portfolio/Portfolio';
+import './AboutMe.css';
+import avatar from '../../images/avatar.png';
 
 function AboutMe() {
   return (

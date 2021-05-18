@@ -63,6 +63,20 @@
   box-shadow: 0px 0px 0px 1px #4285F4 inset;
 }
 
+.spf__input:focus:valid {
+  box-shadow: 0px 0px 0px 1px #3DDC84 inset;
+}
+
+.spf__input:valid {
+  box-shadow: 0px 0px 0px 1px #3DDC847F inset;
+}
+.spf__input:focus:invalid {
+  box-shadow: 0px 0px 0px 1px #EE3465 inset;
+}
+.spf__input:not(:placeholder-shown):invalid {
+  box-shadow: 0px 0px 0px 1px #EE34657F inset;
+}
+
 .spf__label {
   display: flex;
   flex-direction: column;
@@ -73,10 +87,28 @@
   line-height: 12px;
   color: #8B8B8B;
   padding-top: 24px;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .spf__input:last-of-type {
   margin-bottom: 0;
+}
+
+.spf__submit-error {
+  display: none;
+  margin: 30px auto -52px auto;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
+.spf__submit-error_show {
+  display: block;
 }
 
 .spf__button {
@@ -105,6 +137,11 @@
   outline: 0;
 }
 
+.spf__button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
 .spf__hint {
   margin: 16px 0 0 0;
   font-family: Inter;
@@ -130,6 +167,29 @@
 
 .spf__hint-link:hover {
   opacity: .8;
+}
+
+.spf__error-message {
+  display: none;
+  color: #EE3465;
+  position: absolute;
+  transform: translate(-5px, 15px);
+  bottom: 0;
+  right: 0;
+}
+
+.spf__error-message_shown {
+  display: block;
+}
+
+.profile__status-message {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 12px;
+  color: #3DDC84;
+  margin: 50px auto 0 auto;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {

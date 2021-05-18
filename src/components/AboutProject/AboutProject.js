@@ -1,6 +1,6 @@
-import React from "react";
-import Section from "../Section/Section";
-import "./AboutProject.css";
+import React from 'react';
+import Section from '../Section/Section';
+import './AboutProject.css';
 
 function AboutProject() {
   return (

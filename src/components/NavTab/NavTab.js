@@ -1,7 +1,7 @@
-import React from "react";
-import { HashLink } from "react-router-hash-link";
-import Button from "../Button/Button";
-import "./NavTab.css";
+import React from 'react';
+import { HashLink } from 'react-router-hash-link';
+import Button from '../Button/Button';
+import './NavTab.css';
 
 function NavTab() {
   return (
