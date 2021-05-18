@@ -36,12 +36,9 @@ function App() {
     mainApi.getFavouriteMovies(localStorage.getItem('jwt')) // Фетчим любимые фильмы
       .then((favouriteMovies) => { // Перебираем любимые фильмы
         setLikedMovies(favouriteMovies);
-        // return movies // Находим пролайканные фильмы среди всех фильмов
-        //   .filter((movie) => favouriteMovies
-        //     .some((likedMovie) => likedMovie.movieId === movie.id));
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch((message) => {
+        console.log(message);
         setLikedMovies([]);
       });
   };
@@ -86,7 +83,6 @@ function App() {
       .then((resWithLikedMovie) => {
         setLikedMovies([...likedMovies, resWithLikedMovie]);
         console.log(`Фильм «${movie.nameRU}» успешно лайкнут!`);
-        // fetchFavouriteMovies();
       })
       .catch((err) => console.log(err));
   };
@@ -108,6 +104,7 @@ function App() {
     isLiked // Лайк стоит?
       ? dislikeMovie(movie) // Стоит, нужно убрать
       : likeMovie(movie);// Не стоит, нужно поставить
+    console.log(isLiked);
   };
 
   const defMovieLike = (movie) => likedMovies.some((likedMovie) => likedMovie.id === movie.id);
@@ -115,7 +112,7 @@ function App() {
   function keepOnlyFavourite() {
     return movies
       .filter((movie) => likedMovies
-        .some((likedMovie) => likedMovie.movieId === movie.id));
+        .some((likedMovie) => likedMovie.id === movie.id));
   }
 
   /*

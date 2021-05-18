@@ -6,12 +6,15 @@ class MainApi {
 
   _fetchAndCatch(url, payload) {
     const checkStatus = async (response) => {
-      if (response.status >= 200 && response.status < 300) return await response.json();
-      throw await response.json();
-    };
+      if (response.status >= 200 && response.status < 300)
+        return await response.json()
+
+      throw await response.json()
+    }
     return fetch(url, payload)
-      .then(checkStatus);
+      .then(checkStatus)
   }
+
 
   signUpUser(formData) {
     return this._fetchAndCatch(`${this._baseUrl}/signup`, {

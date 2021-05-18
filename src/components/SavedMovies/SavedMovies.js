@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies(props) {
   const {
-    movies, loading, getMovies, toggleMovieLike, defMovieLike,
+    movies, loading, getMovies, toggleMovieLike, defMovieLike, updateMovies,
   } = props;
   const [showShortMovies, setShowShortMovies] = React.useState(true);
   const [searchKeyWords, setSearchKeyWords] = React.useState('');

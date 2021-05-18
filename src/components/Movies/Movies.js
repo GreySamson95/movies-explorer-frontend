@@ -36,8 +36,8 @@ function Movies(props) {
         onFormSubmit={onFormSubmit}
       />
       <MoviesCardList
-        movies={movies}
         showShortMovies={showShortMovies}
+        movies={movies}
         searchKey={searchKeyWords}
         isLoading={loading}
         defMovieLike={defMovieLike}
